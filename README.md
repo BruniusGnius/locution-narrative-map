@@ -14,6 +14,12 @@ Después comparte o indica tu archivo MP3, WAV, M4A, AAC o FLAC.
 
 La primera ejecución puede descargar un runtime local gratuito y un modelo de transcripción. Las siguientes reutilizan esa instalación.
 
+## Usar dentro de Obsidian
+
+Si trabajas con un Vault de Obsidian, puedes usarlo como workspace creativo: deja la locucion dentro del Vault, abre Codex o Claude Code sobre esa carpeta y pide el analisis. Los resultados pueden guardarse como Markdown dentro del propio Vault, mientras el runtime y los modelos permanecen fuera.
+
+Consulta **[OBSIDIAN.md](OBSIDIAN.md)** para la guia paso a paso de Claude Code y Codex.
+
 ## Qué entrega
 
 - transcripción con timestamps por palabra cuando el backend lo soporta;

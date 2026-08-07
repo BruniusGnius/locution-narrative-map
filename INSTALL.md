@@ -36,3 +36,10 @@ Ready. Analyzing the voiceover...
 ```
 
 Do not expose package-manager output or stack traces unless the user requests technical details.
+
+
+## Obsidian vaults
+
+When the user wants to work from an Obsidian Vault, treat the Vault as the creative workspace and keep heavy runtime dependencies outside it. Read `OBSIDIAN.md` for the recommended folder structure and user-facing flow.
+
+Prefer generating the human-readable `narrative-map.md` inside the Vault and keeping model caches, Python runtimes and transcription dependencies under `LNM_HOME` outside the Vault.
