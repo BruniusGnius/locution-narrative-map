@@ -1,0 +1,3 @@
+interface:
+  display_name: "Locution Narrative Map"
+  short_description: "Turn voiceover audio into timed narrative beats and story arc."
