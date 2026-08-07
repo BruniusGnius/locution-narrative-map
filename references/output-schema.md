@@ -103,16 +103,28 @@ Do not imply that glossary terms definitely occur in the recording.
 
 Place this section **before the narrative analysis table** whenever timed speech evidence exists. It is a human QA layer for listening and transcript verification.
 
-Render each phrase as a readable block, not as a dense table:
+Render each phrase as a readable editorial block, not as a dense table. Preserve every timing field, but use hierarchy and whitespace to reduce cognitive load:
 
 ```markdown
 ## Lectura temporizada de la locución
 
-### P01 · Voz 1 · 00:00:00.000 → 00:00:04.056 · 4.06 s
-Bienvenidos a una nueva forma de aprender.
+#### P01 — Voz 1
 
-### P02 · Voz 2 · 00:00:04.849 → 00:00:10.216 · 5.37 s
-Imagina que tus alumnos pudieran convertir una idea en algo real.
+- **Inicio** `00:00:00.000` **Final** `00:00:04.056`
+- **Duración** `4.056 s`
+
+> #### *“Bienvenidos a una nueva forma de aprender.”*
+
+---
+
+#### P02 — Voz 2
+
+- **Inicio** `00:00:04.849` **Final** `00:00:10.216`
+- **Duración** `5.367 s`
+
+> #### *“Imagina que tus alumnos pudieran convertir una idea en algo real.”*
+
+---
 ```
 
 If speaker evidence is unavailable, omit the voice label rather than guessing.
@@ -120,7 +132,11 @@ If speaker evidence is unavailable, omit the voice label rather than guessing.
 Requirements:
 
 - preserve `Pxx` order;
-- show start, end and duration;
+- show start and final on the same bullet;
+- show duration on its own bullet;
+- keep timecodes monospaced with millisecond precision;
+- render the spoken phrase as `> #### *“…”*`;
+- separate every phrase block with `---`;
 - show speaker only when supported by diarization/user mapping;
 - preserve exact or minimally cleaned wording;
 - do not add semantic labels here;
