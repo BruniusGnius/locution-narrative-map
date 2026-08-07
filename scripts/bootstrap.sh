@@ -63,7 +63,7 @@ fi
 
 "$UV_BIN" venv --python 3.12 "$VENV"
 PY="$VENV/bin/python"
-"$UV_BIN" pip install --python "$PY" "imageio-ffmpeg==0.6.0"
+"$UV_BIN" pip install --python "$PY" "imageio-ffmpeg==0.6.0" "numpy>=1.26,<3" "sherpa-onnx==1.13.4" "sherpa-onnx-bin==1.13.4"
 
 BACKEND="faster-whisper"
 if [ "$(uname -s)" = "Darwin" ] && [ "$(uname -m)" = "arm64" ]; then

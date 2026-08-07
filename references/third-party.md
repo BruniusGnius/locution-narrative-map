@@ -9,3 +9,5 @@ The skill repository does not bundle large model files. First-use setup installs
 - Whisper model family — speech-recognition models originally released by OpenAI. Project: https://github.com/openai/whisper
 
 Before public distribution, the repository maintainer should preserve applicable license notices and review dependency/model licenses for the chosen pinned versions.
+- sherpa-onnx — local/offline speaker diarization runtime used to estimate speaker count and who-speaks-when without a paid API. Project: https://github.com/k2-fsa/sherpa-onnx
+- sherpa-onnx speaker diarization models — segmentation and speaker-embedding models downloaded from the project's GitHub releases on first use. Review the license files shipped with each downloaded model before redistribution.

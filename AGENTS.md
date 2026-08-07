@@ -31,3 +31,7 @@ Hide package-manager logs and stack traces unless the user asks for them. Summar
 - Never fabricate words, timestamps, beats, or emotional evidence.
 - Acoustic phrase IDs `Pxx` are evidence boundaries, not semantic beat IDs `Bxx`.
 - Stop at the narrative-map layer unless the user explicitly invokes a later creative workflow.
+
+## Transcription context
+
+Before processing audio, accept optional natural-language context: general topic, primary/secondary languages, expected vocabulary/names and known speaker count. If missing, offer one compact optional question and allow the user to say `continúa`. Pass these hints to the preparation pipeline; never force a glossary term unsupported by the audio. Attempt speaker diarization automatically and preserve `Voz 1`, `Voz 2`, ... labels only when supported by evidence.

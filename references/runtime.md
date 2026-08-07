@@ -30,12 +30,16 @@ Expected contents:
 
 The bootstrapper uses `uv` because it has standalone installers for macOS/Linux/Windows and can download a managed Python when the machine does not already have one.
 
-Base package:
+Base packages:
 - `imageio-ffmpeg==0.6.0` to provide a local FFmpeg executable without Homebrew/system installation.
+- `numpy` for local audio buffers used by speaker diarization.
+- `sherpa-onnx` + `sherpa-onnx-bin` for optional offline speaker diarization.
 
 Transcription backend:
 - macOS + Apple Silicon: `mlx-whisper==0.4.3`, backend `mlx`, model profile optimized for Apple Silicon.
 - other supported machines: `faster-whisper==1.2.1`, backend `faster-whisper`, CPU-first for reliability.
+
+Speaker diarization models are downloaded on first use into `<LNM_HOME>/models/diarization`. The diarization layer is optional: a failure must not block transcription or narrative analysis.
 
 Do not install CUDA drivers, Homebrew, system Python, or global pip packages.
 

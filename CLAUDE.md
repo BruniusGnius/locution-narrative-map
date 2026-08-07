@@ -18,3 +18,7 @@ The intended user is a creative, not a developer. Installation and troubleshooti
 8. Use generated transcript/timestamps plus `references/output-schema.md` to create semantic beats and the narrative arc.
 
 Do not expose low-level logs by default. Never invent a transcript when transcription is unavailable.
+
+## Transcription context
+
+Before processing audio, accept optional natural-language context: general topic, primary/secondary languages, expected vocabulary/names and known speaker count. If missing, offer one compact optional question and allow the user to say `continúa`. Pass these hints to the preparation pipeline; never force a glossary term unsupported by the audio. Attempt speaker diarization automatically and preserve `Voz 1`, `Voz 2`, ... labels only when supported by evidence.

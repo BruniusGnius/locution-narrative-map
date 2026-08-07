@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import argparse
 import json
-import os
 import subprocess
 import sys
 from pathlib import Path
@@ -17,7 +16,7 @@ def check_import(name: str) -> tuple[bool, str]:
 
 def run_doctor(home: Path) -> dict:
     manifest_path = home / "runtime.json"
-    report = {"ok": True, "home": str(home), "checks": {}}
+    report = {"ok": True, "home": str(home), "checks": {}, "optional": {}}
     if not manifest_path.exists():
         report["ok"] = False
         report["checks"]["manifest"] = "missing"
@@ -43,6 +42,13 @@ def run_doctor(home: Path) -> dict:
     ok, detail = check_import(module)
     report["checks"]["transcription_backend"] = detail
     report["ok"] &= ok
+
+    diarization_ok, diarization_detail = check_import("sherpa_onnx")
+    report["optional"]["speaker_diarization"] = diarization_detail
+    report["capabilities"] = {
+        "transcription": ok,
+        "speaker_diarization": diarization_ok,
+    }
     report["backend"] = backend
     report["python"] = sys.version.split()[0]
     return report
@@ -60,6 +66,8 @@ def main() -> int:
         print("Locution Narrative Map doctor")
         for key, value in report["checks"].items():
             print(f"- {key}: {value}")
+        for key, value in report.get("optional", {}).items():
+            print(f"- optional/{key}: {value}")
         print(f"- backend: {report.get('backend', 'unknown')}")
         print("Status: OK" if report["ok"] else "Status: NEEDS REPAIR")
     return 0 if report["ok"] else 1

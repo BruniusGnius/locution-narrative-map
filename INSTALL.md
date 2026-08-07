@@ -43,3 +43,7 @@ Do not expose package-manager output or stack traces unless the user requests te
 When the user wants to work from an Obsidian Vault, treat the Vault as the creative workspace and keep heavy runtime dependencies outside it. Read `OBSIDIAN.md` for the recommended folder structure and user-facing flow.
 
 Prefer generating the human-readable `narrative-map.md` inside the Vault and keeping model caches, Python runtimes and transcription dependencies under `LNM_HOME` outside the Vault.
+
+## Transcription context
+
+Before processing audio, accept optional natural-language context: general topic, primary/secondary languages, expected vocabulary/names and known speaker count. If missing, offer one compact optional question and allow the user to say `continúa`. Pass these hints to the preparation pipeline; never force a glossary term unsupported by the audio. Attempt speaker diarization automatically and preserve `Voz 1`, `Voz 2`, ... labels only when supported by evidence.

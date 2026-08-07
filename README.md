@@ -12,6 +12,12 @@ Dale este repositorio a Codex o Claude Code y dile:
 
 Después comparte o indica tu archivo MP3, WAV, M4A, AAC o FLAC.
 
+Para mejorar la precisión puedes darle contexto en lenguaje natural, por ejemplo:
+
+> Es un podcast sobre técnicas de prompting e ingeniería de contexto. Está principalmente en español, usa algunos términos en inglés y hablan 2 personas. Pueden aparecer palabras como prompting, context engineering, RAG y few-shot.
+
+No es obligatorio llenar un formulario: si no sabes esos datos, dile `continúa` y la Skill intentará detectarlos.
+
 La primera ejecución puede descargar un runtime local gratuito y un modelo de transcripción. Las siguientes reutilizan esa instalación.
 
 ## Usar dentro de Obsidian
@@ -22,7 +28,10 @@ Consulta **[OBSIDIAN.md](OBSIDIAN.md)** para la guia paso a paso de Claude Code 
 
 ## Qué entrega
 
+- contexto de transcripción guardado para saber qué pistas se utilizaron;
 - transcripción con timestamps por palabra cuando el backend lo soporta;
+- detección local de cantidad de voces y cambios de hablante cuando la diarización está disponible;
+- una **lectura temporizada de la locución** con `P01`, `P02`, ... mostrando voz, inicio, fin, duración y texto para revisar fácilmente la transcripción mientras escuchas;
 - frases acústicas `P01`, `P02`, ... basadas en pausas y ritmo;
 - beats narrativos `B01`, `B02`, ... definidos por significado;
 - arco narrativo global;
@@ -65,4 +74,4 @@ Esta versión prioriza una experiencia sin setup manual. El backend se seleccion
 - Apple Silicon: MLX Whisper.
 - Otros sistemas compatibles: faster-whisper en CPU como fallback conservador.
 
-La skill nunca debe inventar una transcripción si la capa de speech-to-text no está disponible.
+La skill nunca debe inventar una transcripción ni una identidad de hablante. Si la diarización no está disponible, el resto del análisis continúa y el dato de voces se marca como desconocido.

@@ -24,12 +24,14 @@ Read `references/output-schema.md` before producing the final narrative map.
 ## Workflow
 
 1. Identify the input source.
-2. If audio requires transcription, ensure the local runtime is healthy.
-3. Run the preparation pipeline to create transcript + acoustic timing evidence.
-4. Separate acoustic phrases (`Pxx`) from semantic beats (`Bxx`).
-5. Build the narrative arc and annotate each beat.
-6. Validate time coverage and boundaries.
-7. Return the human-readable map and stable downstream handoff.
+2. Collect optional transcription context without blocking the user.
+3. If audio requires transcription, ensure the local runtime is healthy.
+4. Run the preparation pipeline to create transcript + acoustic timing + speaker evidence.
+5. Build the human-reviewable timed phrase reading (`Pxx`) from the transcript and acoustic evidence.
+6. Separate acoustic phrases (`Pxx`) from semantic beats (`Bxx`).
+7. Build the narrative arc and annotate each beat.
+8. Validate time coverage and boundaries.
+9. Return the human-readable map and stable downstream handoff.
 
 ## 1. Input routing
 
@@ -59,7 +61,7 @@ Windows PowerShell:
 powershell -ExecutionPolicy Bypass -File scripts/run.ps1 prepare "<audio-file>" --output "<output-directory>"
 ```
 
-This produces a transcript, word timestamps, acoustic phrase candidates and `handoff.json`. Use those files as evidence for semantic analysis.
+This produces `context.json`, a transcript, word timestamps, `speaker-map.json`, acoustic phrase candidates, `phrase-map.json` and `handoff.json`. `phrase-map.json` attaches readable transcript text to each `Pxx` time range so a human can verify the transcription against the audio before relying on the narrative analysis. Use those files as evidence for semantic analysis.
 
 If setup fails, run the doctor before asking the user to troubleshoot:
 
@@ -87,7 +89,40 @@ Prefer the local preparation pipeline so word timing can be aligned from the aud
 
 Perform semantic beat analysis without pretending to know exact media timings. Mark timing as untimed/estimated.
 
-## 2. Runtime privacy and storage
+
+## 2. Optional transcription context
+
+Before transcribing an audio file, use context as a quality hint when the user provides it. Do not require technical metadata. If useful context is missing, ask at most one compact optional intake message covering:
+
+- general topic or subject of the audio;
+- primary language and any secondary languages/foreign terms;
+- names, brands, acronyms or technical vocabulary likely to appear;
+- expected number of speakers, when the user knows it.
+
+Make it easy to skip: the user may answer in one line or say `continúa` / `no sé`. Never block transcription because these details are absent.
+
+Example user context:
+
+```text
+Es un podcast sobre técnicas de prompting e ingeniería de contexto.
+Está principalmente en español, pero usa términos en inglés.
+Pueden aparecer: prompting, context engineering, system prompt, RAG y few-shot.
+Hablan 2 personas.
+```
+
+Use this context only as a hypothesis. Never force glossary terms that are not supported by the audio. Preserve foreign terms, names and acronyms in their original form when the acoustic evidence supports them. Save the context used as `context.json` and include it in `handoff.json`.
+
+### Speaker detection
+
+Attempt local speaker diarization when audio is available. If the user provides the expected speaker count, use it as a clustering hint, not as permission to invent identities. If the user does not know the count, attempt automatic detection.
+
+- Label unknown voices as `Voz 1`, `Voz 2`, ... and keep stable speaker IDs `S01`, `S02`, ... .
+- Do not infer real names, jobs, gender, age or identity from voice alone.
+- If the user later provides identities or roles, map those labels explicitly.
+- If diarization is unavailable or unreliable, mark speaker data as unavailable/unknown and continue the rest of the narrative map.
+- Save diarization evidence as `speaker-map.json`.
+
+## 3. Runtime privacy and storage
 
 Default runtime location is private user storage, not the active project. Users can choose another location, including an external SSD, by setting `LNM_HOME` before installation.
 
@@ -107,7 +142,7 @@ $env:LNM_HOME="E:\CreativeAI\locution-narrative-map-runtime"
 
 Do not require the user to understand this option unless they explicitly care where the runtime is stored.
 
-## 3. Evidence layers
+## 4. Evidence layers
 
 Keep three layers distinct:
 
@@ -117,7 +152,29 @@ Keep three layers distinct:
 
 A beat may contain multiple phrases. A long phrase may contain multiple beats.
 
-## 4. Semantic beats
+## 5. Timed phrase reading
+
+Before the narrative table, always include a human-readable **Lectura temporizada de la locución** when timed speech evidence exists. Preserve all existing narrative outputs; this is an additional review layer.
+
+For each `Pxx`, show:
+
+- phrase ID;
+- start time;
+- end time;
+- duration;
+- exact or minimally cleaned transcript text;
+- speaker label when diarization evidence is available.
+
+Use one phrase block per `Pxx` rather than a dense table so a human can read it like a timed script while listening. Example:
+
+```markdown
+### P03 · Voz 1 · 00:00:11.026 → 00:00:15.136 · 4.11 s
+Que no solo aprendieran tecnología, sino que aprendieran a crear con ella.
+```
+
+Do not treat `Pxx` as narrative meaning. Its purpose is transcript verification, timing review and traceability. If a phrase has no reliably aligned words, preserve the time range and mark its text as unavailable rather than guessing.
+
+## 6. Semantic beats
 
 Create a new beat when one or more materially changes:
 
@@ -130,13 +187,13 @@ Create a new beat when one or more materially changes:
 
 Prefer meaningful boundaries over fixed-duration slices. Assign stable IDs `B01`, `B02`, ... in timeline order.
 
-## 5. Narrative arc
+## 7. Narrative arc
 
 Infer the global progression first, then classify beats relative to it. Useful roles include hook, premise, context, problem, stakes, escalation, contrast, evidence, reframe, insight, reveal, solution, transformation, invitation, CTA and closing.
 
 Do not force a three-act or advertising structure when the material uses another form.
 
-## 6. Intention, emotion and intensity
+## 8. Intention, emotion and intensity
 
 For each beat:
 
@@ -146,10 +203,14 @@ For each beat:
 
 Use vocal delivery as supporting evidence, but distinguish vocal energy from narrative importance.
 
-## 7. Validation
+## 9. Validation
 
 Before answering, verify:
 
+- the timed phrase reading appears before the narrative beat table when timing evidence exists;
+- each `Pxx` preserves start, end, duration and transcript text when available;
+- speaker labels are shown only when diarization evidence supports them;
+- context/glossary terms are treated as hints rather than corrections without acoustic support;
 - every beat has textual evidence;
 - timecodes do not overlap unintentionally;
 - voiced sections are not omitted without explanation;
@@ -159,6 +220,6 @@ Before answering, verify:
 - global arc agrees with beat-level functions;
 - downstream handoff preserves stable IDs and time ranges.
 
-## 8. Stop at the narrative-map layer
+## 10. Stop at the narrative-map layer
 
 Do not automatically create a moodboard, storyboard, camera plan, shot list or technical script. This skill establishes the temporal/narrative foundation for those later creative stages.

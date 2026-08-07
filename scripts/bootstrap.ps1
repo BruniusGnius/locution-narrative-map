@@ -54,6 +54,6 @@ if (-not (Test-Path $UvBin)) {
 
 & $UvBin venv --python 3.12 $Venv
 $Python = Join-Path $Venv "Scripts\python.exe"
-& $UvBin pip install --python $Python "imageio-ffmpeg==0.6.0" "faster-whisper==1.2.1"
+& $UvBin pip install --python $Python "imageio-ffmpeg==0.6.0" "numpy>=1.26,<3" "sherpa-onnx==1.13.4" "sherpa-onnx-bin==1.13.4" "faster-whisper==1.2.1"
 & $Python (Join-Path $ScriptDir "configure_runtime.py") --home $RuntimeHome --backend "faster-whisper"
 & $Python (Join-Path $ScriptDir "doctor.py") --home $RuntimeHome
