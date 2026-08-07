@@ -165,12 +165,20 @@ For each `Pxx`, show:
 - exact or minimally cleaned transcript text;
 - speaker label when diarization evidence is available.
 
-Use one phrase block per `Pxx` rather than a dense table so a human can read it like a timed script while listening. Example:
+Use one phrase block per `Pxx` rather than a dense table so a human can read it like a timed script while listening. Apply this exact information hierarchy in the human-readable Markdown:
 
 ```markdown
-### P03 · Voz 1 · 00:00:11.026 → 00:00:15.136 · 4.11 s
-Que no solo aprendieran tecnología, sino que aprendieran a crear con ella.
+#### P03 — Voz 1
+
+- **Inicio** `00:00:11.026` **Final** `00:00:15.136`
+- **Duración** `4.110 s`
+
+> #### *“Que no solo aprendieran tecnología, sino que aprendieran a crear con ella.”*
+
+---
 ```
+
+Keep start and final timecodes on the same bullet, duration on its own bullet, and the spoken phrase in a blockquote with level-4 heading emphasis plus italics. Separate every phrase block with `---`. Preserve millisecond precision in this review layer; the visual hierarchy, not information removal, is what makes it readable.
 
 Do not treat `Pxx` as narrative meaning. Its purpose is transcript verification, timing review and traceability. If a phrase has no reliably aligned words, preserve the time range and mark its text as unavailable rather than guessing.
 
