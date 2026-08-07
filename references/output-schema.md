@@ -72,6 +72,27 @@ Each beat should carry:
 - `transition_reason`: why the next beat deserves a new boundary
 - `timing_quality`: `source`, `aligned`, or `estimated`
 
+
+## Deep narrative enrichment fields
+
+The following fields are additive. Keep every original beat field above and enrich the same `Bxx` object when the source supports a meaningful interpretation:
+
+- `audience_question`: active question, doubt, expectation or curiosity at this point;
+- `narrative_movement`: relational movement such as `promesa -> demostracion` or `objecion -> tranquilidad`;
+- `perception_shift`: intended before/after change in audience perception;
+- `tension_release`: tension or uncertainty opened, sustained, escalated, relieved or resolved;
+- `subtext`: concise evidence-based implied message beneath literal wording;
+- `persuasive_intent`: specific persuasive job performed by the beat;
+- `rhetorical_device`: meaningful rhetorical mechanism, if present;
+- `energy_direction`: `rising`, `falling`, `holding`, `resetting`, `pivoting`, `accelerating`, `decelerating`, or a concise combination;
+- `bridge_from_previous`: what the beat inherits, answers, contradicts or advances;
+- `bridge_to_next`: what it prepares or leaves active for the next beat;
+- `visual_opportunity`: non-prescriptive visual handoff hint for later visual-direction/storyboard work.
+
+Do not replace `core_idea`, `narrative_function`, `intention`, `emotion`, `intensity` or `transition_reason`. The enriched fields explain how and why those existing fields operate.
+
+When a field would only repeat the voiceover or cannot be supported, use `null`, `none material`, or omit it according to the output format.
+
 ## Narrative function vocabulary
 
 Use the smallest useful vocabulary and adapt when needed:
@@ -144,17 +165,48 @@ Requirements:
 
 ### 3. Arc summary
 
-Give 3–6 bullets describing the overall progression and identify the strongest turn/climax when one exists.
+Give 3–6 bullets describing the overall progression and identify the strongest turn/climax when one exists. Preserve this existing section.
+
+Then add a **Deep narrative architecture** subsection containing, when supported:
+
+- audience starting position;
+- central narrative question / governing tension;
+- transformation path;
+- argument architecture;
+- emotional architecture;
+- credibility architecture;
+- intended audience after-state / resolution.
 
 ### 4. Narrative timeline
 
 | Beat | Timecode | Speaker | Voiceover | Core idea | Function | Intention / emotion | Intensity | Boundary reason |
 |---|---|---|---|---|---|---|---:|---|
 
-### 5. Rhythm and timing notes
+### 5. Deep beat reading
+
+After the existing narrative timeline, add a second, more interpretive section. Preserve the same `Bxx` IDs and do not duplicate the entire original table mechanically. For each beat, present the useful enriched fields in a readable block. A recommended pattern is:
+
+```markdown
+#### B06 — Promesa -> demostración
+
+- **Pregunta activa:** ¿Cómo puedo comprobar que esto realmente es innovación?
+- **Cambio de percepción:** de una promesa de marca -> evidencia verificable del aprendizaje.
+- **Tensión / liberación:** resuelve la duda sobre si la innovación puede observarse.
+- **Subtexto:** no se pide confianza ciega; se ofrece prueba.
+- **Intención persuasiva:** convertir una afirmación abstracta en credibilidad concreta.
+- **Recurso retórico:** pregunta directa + progresión de tres evidencias.
+- **Energía:** ascendente, acumulativa.
+- **Viene de:** la explicación del método.
+- **Prepara:** la pregunta sobre quién acompaña al alumno.
+- **Oportunidad visual:** progresión tangible `prototipo -> pruebas -> explicación del alumno`.
+```
+
+Do not force every label when it adds no value. The purpose is deeper interpretation, not field completion.
+
+### 6. Rhythm and timing notes
 
 Call out meaningful pauses, acceleration, compression, breathing room, speaker changes, and any mismatch between acoustic phrasing and semantic beats.
 
-### 6. Downstream handoff
+### 7. Downstream handoff
 
-End with a compact machine-readable block or table preserving at least `beat_id`, `tc_in`, `tc_out`, `core_idea`, `narrative_function`, `emotion`, and `intensity`. Preserve the context, speaker layer and phrase layer separately so later visual-direction/storyboard skills can trace beats back to exact spoken phrases and speaker changes. This is the contract for later visual-direction/storyboard skills.
+End with a compact machine-readable block or table preserving at least `beat_id`, `tc_in`, `tc_out`, `core_idea`, `narrative_function`, `emotion`, and `intensity`, plus any supported deep-narrative enrichment fields. Preserve the context, speaker layer and phrase layer separately so later visual-direction/storyboard skills can trace beats back to exact spoken phrases and speaker changes. This is the contract for later visual-direction/storyboard skills.

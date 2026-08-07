@@ -20,6 +20,7 @@ Treat this as a creative tool, not a developer workflow.
 
 Read `references/runtime.md` before bootstrapping or troubleshooting.
 Read `references/output-schema.md` before producing the final narrative map.
+Read `references/narrative-analysis.md` before interpreting the global arc or semantic beats.
 
 ## Workflow
 
@@ -30,8 +31,9 @@ Read `references/output-schema.md` before producing the final narrative map.
 5. Build the human-reviewable timed phrase reading (`Pxx`) from the transcript and acoustic evidence.
 6. Separate acoustic phrases (`Pxx`) from semantic beats (`Bxx`).
 7. Build the narrative arc and annotate each beat.
-8. Validate time coverage and boundaries.
-9. Return the human-readable map and stable downstream handoff.
+8. Enrich the same beats with the deep narrative-analysis layer; do not replace the existing beat analysis.
+9. Validate time coverage, semantic relationships and boundaries.
+10. Return the human-readable map and stable downstream handoff.
 
 ## 1. Input routing
 
@@ -201,7 +203,35 @@ Infer the global progression first, then classify beats relative to it. Useful r
 
 Do not force a three-act or advertising structure when the material uses another form.
 
-## 8. Intention, emotion and intensity
+Also produce a deeper global reading using `references/narrative-analysis.md`. Preserve the existing arc summary, strongest turn and climax; add, rather than substitute:
+
+- audience starting position;
+- central narrative question or governing tension;
+- transformation path;
+- argument architecture;
+- emotional architecture;
+- credibility architecture when relevant;
+- intended audience after-state / resolution.
+
+## 8. Deep narrative reading
+
+Preserve every existing `Bxx` field. Then enrich each beat using the deep-analysis framework in `references/narrative-analysis.md`. Look for relational signals such as:
+
+- active audience question or expectation;
+- narrative movement from one state to another;
+- intended perception shift;
+- tension opened, sustained or released;
+- subtext;
+- persuasive job;
+- rhetorical device;
+- energy direction;
+- bridge from the previous beat;
+- bridge to the next beat;
+- visual opportunity for downstream creative work.
+
+Do not fill these mechanically. Use `null`, `none material`, or omit an optional field when the source does not support a meaningful interpretation. Prefer specific before/after relationships over generic labels.
+
+## 9. Intention, emotion and intensity
 
 For each beat:
 
@@ -211,7 +241,7 @@ For each beat:
 
 Use vocal delivery as supporting evidence, but distinguish vocal energy from narrative importance.
 
-## 9. Validation
+## 10. Validation
 
 Before answering, verify:
 
@@ -226,8 +256,11 @@ Before answering, verify:
 - `Pxx` IDs are never presented as `Bxx` IDs;
 - estimated timing is labeled;
 - global arc agrees with beat-level functions;
-- downstream handoff preserves stable IDs and time ranges.
+- deep-analysis fields add relational insight rather than paraphrasing the voiceover;
+- audience-question, perception-shift, tension and subtext claims remain evidence-based;
+- visual-opportunity hints stop before storyboard/shot design;
+- downstream handoff preserves stable IDs, time ranges and all original beat fields alongside enriched fields.
 
-## 10. Stop at the narrative-map layer
+## 11. Stop at the narrative-map layer
 
 Do not automatically create a moodboard, storyboard, camera plan, shot list or technical script. This skill establishes the temporal/narrative foundation for those later creative stages.
