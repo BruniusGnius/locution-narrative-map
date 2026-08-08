@@ -215,7 +215,11 @@ Also produce a deeper global reading using `references/narrative-analysis.md`. P
 
 ## 8. Deep narrative reading
 
-Preserve every existing `Bxx` field. Then enrich each beat using the deep-analysis framework in `references/narrative-analysis.md`. Look for relational signals such as:
+Preserve every existing `Bxx` field. Then enrich each beat using the deep-analysis framework in `references/narrative-analysis.md`. Adopt the senior audiovisual narrative analyst / script editor / rhetoric and intention strategist role defined there. Analyze the actual narrative form rather than forcing an advertising or three-act template.
+
+Before writing the enriched fields, distinguish four things: literal content, relational change from adjacent beats, audience-state change, and structural purpose. Then write only supported conclusions.
+
+Look for relational signals such as:
 
 - active audience question or expectation;
 - narrative movement from one state to another;
@@ -228,6 +232,10 @@ Preserve every existing `Bxx` field. Then enrich each beat using the deep-analys
 - bridge from the previous beat;
 - bridge to the next beat;
 - visual opportunity for downstream creative work.
+
+Keep the enriched fields non-redundant: `audience_question` is the unresolved mental question; `narrative_movement` is the structural transition; `perception_shift` is the audience belief/frame change; `tension_release` tracks unresolved pressure; `subtext` captures implication; `persuasive_intent` names the strategic job; `rhetorical_device` names the mechanism; `energy_direction` tracks momentum; bridges explain adjacency; and `visual_opportunity` is only a narrative handoff clue. If two fields say essentially the same thing, rewrite or omit the weaker one.
+
+Use the controlled energy vocabulary from `references/narrative-analysis.md`. Treat audio pauses, pacing and speaker changes as supporting evidence rather than automatic meaning. When evidence is ambiguous, qualify the interpretation instead of inventing certainty.
 
 Do not fill these mechanically. Use `null`, `none material`, or omit an optional field when the source does not support a meaningful interpretation. Prefer specific before/after relationships over generic labels.
 

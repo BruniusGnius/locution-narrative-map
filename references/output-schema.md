@@ -91,7 +91,20 @@ The following fields are additive. Keep every original beat field above and enri
 
 Do not replace `core_idea`, `narrative_function`, `intention`, `emotion`, `intensity` or `transition_reason`. The enriched fields explain how and why those existing fields operate.
 
-When a field would only repeat the voiceover or cannot be supported, use `null`, `none material`, or omit it according to the output format.
+Keep deep fields semantically distinct:
+
+- `audience_question` = unresolved audience state;
+- `narrative_movement` = structural before/after transition;
+- `perception_shift` = intended belief/frame change;
+- `tension_release` = uncertainty, objection, risk or expectation opened/closed;
+- `subtext` = supported implication beneath the literal line;
+- `persuasive_intent` = strategic job in the whole piece;
+- `rhetorical_device` = wording/delivery mechanism;
+- `energy_direction` = momentum behavior, not intensity;
+- bridges = concrete adjacency dependencies;
+- `visual_opportunity` = visualizable narrative relationship, never a shot prescription.
+
+If two enriched fields are interchangeable or repeat the same claim, rewrite or omit the weaker one. When a field would only repeat the voiceover or cannot be supported, use `null`, `none material`, or omit it according to the output format. Qualify materially ambiguous interpretations rather than presenting inference as fact.
 
 ## Narrative function vocabulary
 
